@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: "jdbc:h2:mem:dev-base;INIT=RUNSCRIPT FROM 'classpath:sql/create.tutorialtestingdb.sql'"
+    driver-class-name: "org.h2.Driver"
+    username: "romain"
+    password: "romain"
+  h2.console:
+    enabled: true
+    path: /h2-console
+    settings.trace: false
+    settings.web-allow-others: true
+  profiles:
+    groupe:
+      "manualmock_all": "mock_PersonDao"
+  mvc:
+    pathmatch:
+      matching-strategy : ant_path_matcher
