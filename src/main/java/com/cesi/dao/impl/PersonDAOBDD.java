@@ -1,9 +1,9 @@
 package com.cesi.dao.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 import javax.sql.DataSource;
-
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,12 +22,6 @@ public class PersonDAOBDD implements PersonDAO {
     private static final String ANNEENAISSANCE_FIELD = "anneeNaissance";
     private static final String NATIONALITE_FIELD = "nationalite";
     private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public PersonDAOBDD(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
     private final RowMapper<PersonDTO> rowMapper = (rs, rowNum) -> {
         final PersonDTO person = new PersonDTO();
         person.setId(rs.getInt(ID_FIELD));
@@ -38,22 +32,67 @@ public class PersonDAOBDD implements PersonDAO {
         return person;
     };
 
+    @Autowired
+    public PersonDAOBDD(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    public PersonDTO getPerson(int id) {
+        PersonDTO person;
+        List<PersonDTO> persons = this.jdbcTemplate.query(
+            "SELECT * from person WHERE id = " + id,
+            this.rowMapper
+        );
+        // persons = new ArrayList(persons);
+        if (persons.size() == 1)
+            person = persons.get(0);
+        else  
+            person = null;
+
+        return person;
+    }
+
     @Override
     public boolean deletePerson(int id) {
-        // TODO Auto-generated method stub
-        return false;
+        int nbRow = this.jdbcTemplate.update(
+            "DELETE * WHERE id = " + id, 
+            this.rowMapper
+        );
+        return nbRow > 0;
     }
 
     @Override
     public PersonDTO addPerson(PersonDTO person) {
-        // TODO Auto-generated method stub
-        return null;
+        // vérifier que la personne existe
+        Object personsAlreadyInBase;
+        personsAlreadyInBase = this.jdbcTemplate.queryForObject(
+            "SELECT * from person WHERE nom = ? AND prenom = ? AND anneenaissance = ? AND nationnalite = ?",
+            person.getNom(), person.getPrenom(), person.getAnneeNaissance(), person.getNationalite()
+        );
+        if(personsAlreadyInBase){
+
+        }
+        // insérer en base
+        int nbRow = this.jdbcTemplate.update(
+            "INSERT INTO Person VALUES(?, ?, ?, ?)", 
+            person.getNom(), person.getPrenom(), person.getAnneeNaissance(), person.getNationalite()
+        );
+        // récupérer les informations introduites en base (avec l'id du coup) et les renvoyer
+        Object nbpersons;
+        if (nbRow == 1)
+            nbpersons = this.jdbcTemplate.queryForObject(
+                "SELECT * from person WHERE nom = ? AND prenom = ? AND anneenaissance = ? AND nationnalite = ?",
+                person.getNom(), person.getPrenom(), person.getAnneeNaissance(), person.getNationalite()
+            );
+        return person;
     }
 
     @Override
     public List<PersonDTO> getAllPersons() {
-        // TODO Auto-generated method stub
-        return null;
+        List<PersonDTO> listPerson = this.jdbcTemplate.query(
+            "select * from person", 
+            this.rowMapper
+        );
+        return listPerson;
     }
-    
 }
