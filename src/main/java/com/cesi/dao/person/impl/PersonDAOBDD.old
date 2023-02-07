@@ -13,7 +13,7 @@ import com.cesi.dao.PersonDAO;
 import com.cesi.dao.model.PersonDTO;
 
 @Repository
-public class PersonDAOBDD implements PersonDAO {
+public class PersonDAOBDD_old {
 
     private static final Logger LOG = LoggerFactory.getLogger(PersonDAOBDD.class);
     private static final String ID_FIELD = "id";

@@ -8,26 +8,14 @@ public class Person {
     private Integer id;
     private String nom;
     private String prenom;
-    private int anneeNaissance;
+    private Integer anneeNaissance;
     private String nationalite;
 
     @JsonCreator
     public Person(@JsonProperty("id") Integer id,
                   @JsonProperty("nom") String nom,
                   @JsonProperty("prenom") String prenom,
-                  @JsonProperty("anneeNaissance") int anneeNaissance,
-                  @JsonProperty("nationalite") String nationalite) {
-        this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.anneeNaissance = anneeNaissance;
-        this.nationalite = nationalite;
-    }
-
-    @JsonCreator
-    public Person(@JsonProperty("nom") String nom,
-                  @JsonProperty("prenom") String prenom,
-                  @JsonProperty("anneeNaissance") int anneeNaissance,
+                  @JsonProperty("anneeNaissance") Integer anneeNaissance,
                   @JsonProperty("nationalite") String nationalite) {
         this.id = id;
         this.nom = nom;
@@ -39,13 +27,6 @@ public class Person {
     // UGLY ! public void constructor and setters 4 mapstruct
     public Person() {
     }
-
-    public Person(@JsonProperty("nom") String nom,
-                  @JsonProperty("prenom") String prenom) {
-        this.nom = nom;
-        this.prenom = prenom;
-    }
-
 
     @Override
     public String toString() {
@@ -76,11 +57,11 @@ public class Person {
         this.id = id;
     }
 
-    public int getAnneeNaissance() {
+    public Integer getAnneeNaissance() {
         return anneeNaissance;
     }
 
-    public void setAnneeNaissance(int anneeNaissance) {
+    public void setAnneeNaissance(Integer anneeNaissance) {
         this.anneeNaissance = anneeNaissance;
     }
 

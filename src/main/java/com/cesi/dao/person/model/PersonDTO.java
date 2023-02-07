@@ -1,5 +1,6 @@
-package com.cesi.dao.model;
+package com.cesi.dao.person.model;
 
+// 
 public class PersonDTO {
 
     private int id;
