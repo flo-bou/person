@@ -1,8 +1,5 @@
 package com.cesi.dao.person.impl;
 
-// import com.test.controller.person.model.Person;
-// import com.test.dao.person.PersonDAO;
-// import com.test.dao.person.model.PersonDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +17,7 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
+// Cette classe effectue un CRUD en base de données sur les Person
 @Repository
      public class PersonDAOBDD implements IPersonDAO {
 

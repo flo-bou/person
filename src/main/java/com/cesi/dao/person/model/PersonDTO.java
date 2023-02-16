@@ -1,6 +1,6 @@
 package com.cesi.dao.person.model;
 
-// 
+// une PersonDTO correspond à l'image de ce qu'il y a dans la BDD
 public class PersonDTO {
 
     private int id;

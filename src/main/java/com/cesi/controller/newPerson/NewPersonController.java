@@ -1,4 +1,4 @@
-package com.cesi.controller.person;
+package com.cesi.controller.newPerson;
 
 import com.cesi.controller.person.model.Person;
 import com.cesi.services.person.PersonService;
@@ -13,18 +13,18 @@ import java.util.List;
 
 @RestController
 @Validated
-public class PersonController {
+public class NewPersonController {
 
     public static final String NOT_FOUND_MESSAGE = "Person not found";
 
-    private static final Logger LOG = LoggerFactory.getLogger(PersonController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NewPersonController.class);
 
 //    private static final PersonMapper MAPPER = PersonMapper.INSTANCE;
 
     private final PersonService personService;
 
     @Autowired
-    public PersonController(PersonService personService) {
+    public NewPersonController(PersonService personService) {
         this.personService = personService;
     }
 
@@ -46,54 +46,6 @@ public class PersonController {
         }
 
         return res;
-    }
-
-    @PostMapping("/persons")
-    public Person addPerson(@RequestBody Person person) {
-
-        Person resp = null;
-
-
-        try {
-            resp = this.personService.addPerson(person);
-
-        } catch (final Exception e) {
-            LOG.error("Pb du service /person: ", e);
-        }
-
-        return resp;
-
-    }
-
-    @DeleteMapping("persons/{id}")
-    public Boolean deletePersonRest(@PathVariable Integer id) {
-
-        Boolean resp = null;
-
-        try {
-            resp = this.personService.deleteById(id);
-
-        } catch (final Exception e) {
-            LOG.error("Pb du service /person: ", e);
-        }
-
-        return resp;
-
-    }
-
-    @PutMapping("persons/{id}")
-    public Person updatePersonRest(@RequestBody Person person, @PathVariable Integer id) {
-
-        Person resp = null;
-
-        try {
-            resp = this.personService.update(person,id);
-        } catch (final Exception e) {
-            LOG.error("Pb du service /person: ", e);
-        }
-
-        return resp;
-
     }
 
 }

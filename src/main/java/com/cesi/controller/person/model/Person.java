@@ -3,6 +3,7 @@ package com.cesi.controller.person.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+// défini la forme de l'objet Person pour la couche controller
 public class Person {
 
     private Integer id;

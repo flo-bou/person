@@ -13,8 +13,9 @@ public class PersonService {
     private final IPersonDAO personDAO;
 
     @Autowired
-    public PersonService(@Qualifier("personDAOBDD") final IPersonDAO personDAO) {
-        this.personDAO = personDAO;
+    public PersonService(@Qualifier("personDAORest") final IPersonDAO personDAO) {
+    // public PersonService(@Qualifier("personDAOBDD") final IPersonDAO personDAO) {
+            this.personDAO = personDAO;
     }
 
     public boolean deleteById(final Integer id) {

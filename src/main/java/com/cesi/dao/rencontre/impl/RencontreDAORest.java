@@ -1,7 +1,6 @@
 package com.cesi.dao.rencontre.impl;
 
 import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Repository;
