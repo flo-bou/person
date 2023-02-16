@@ -1,5 +1,7 @@
 package com.cesi.services.newPerson;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +32,16 @@ public class NewPersonService {
     // }
 
     public List<NewPerson> getAllNewPersons() {
-        // on va appeler le service Person
+        // on va tranformer chaque person en newPerson en allant aussi récupérer les informations de Rencontre
         List<Person> allPersons = personDAO.getAllPersons();
-        List<NewPerson> allNewPersons;
+        List<NewPerson> allNewPersons = new ArrayList<NewPerson>();
+        // get all rencontres
         for (Person person : allPersons) {
-            // get all rencontres
+            // pour chaque person, on va créer un newPerson en allant parcourir Rencontre pour remplir les champs nbVictoire et nbDefaite
+            Integer nbVictoire = Integer.valueOf(rencontreDAO.getRencontresFilter(person.getId(), null).size());
+            Integer nbDefaite = Integer.valueOf(rencontreDAO.getRencontresFilter(null, person.getId()).size());
+            NewPerson newPerson = new NewPerson(person.getId(), person.getNom(), person.getPrenom(), nbVictoire, nbDefaite);
+            allNewPersons.add(newPerson);
         }
         return allNewPersons;
     }
@@ -51,33 +58,16 @@ public class NewPersonService {
     }*/
 
     public List<NewPerson> getNewPersonsFilter(String id, String nom) {
-        List<Person> persons = personDAO.getPersonsFilter(id,nom);
         // on va tranformer chaque person en newPerson en allant aussi récupérer les informations de Rencontre
+        List<Person> persons = personDAO.getPersonsFilter(id, nom);
+        List<NewPerson> newPersons = new ArrayList<NewPerson>();
         for (Person person : persons) {
-            NewPerson newPerson = new NewPerson(person.getId(), person.getNom(), person.getPrenom());
-            // on va récuperer toutes les rencontres puis on va les parcourir pour compter le nombre de victoires et de défaites pour les mettre dans les newPerson
-            List<Rencontre> rencontres = rencontreDAO.getRencontresFilter(person.getId(), null);
-
-            newPerson.setNbVictoire();
-            newPerson.setNbDefaite();
+            Integer nbVictoire = Integer.valueOf(rencontreDAO.getRencontresFilter(person.getId(), null).size());
+            Integer nbDefaite = Integer.valueOf(rencontreDAO.getRencontresFilter(null, person.getId()).size());
+            NewPerson newPerson = new NewPerson(person.getId(), person.getNom(), person.getPrenom(), nbVictoire, nbDefaite);
+            newPersons.add(newPerson);
         }
-        // List<NewPerson> newPersons =  personDAO.getPersonsFilter(id,nom);
-        List<NewPerson> newPersons;
         return newPersons;
     }
 
-    // public Person addPerson(Person person){
-    //     return personDAO.addPerson(person);
-    // }
-
-    // public Person update(Person person,Integer id){
-    //     if(this.personDAO.findById(id) != null){
-    //         person.setId(id);
-    //         return this.personDAO.update(person);
-    //     }else{
-    //         person.setId(id);
-    //         return this.personDAO.addPerson(person);
-    //     }
-    // }
 }
-
