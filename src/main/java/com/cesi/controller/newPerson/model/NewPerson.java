@@ -26,6 +26,15 @@ public class NewPerson {
         this.nbDefaite = nbDefaite;
     }
 
+    public NewPerson(@JsonProperty("id") Integer id,
+                    @JsonProperty("nom") String nom,
+                    @JsonProperty("prenom") String prenom)
+    {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+
     // UGLY ! public void constructor and setters 4 mapstruct
     public NewPerson() {
     }
@@ -53,6 +62,14 @@ public class NewPerson {
 
     public Integer getNbDefaite() {
         return nbDefaite;
+    }
+
+    public void setNbVictoire(Integer nbVictoire) {
+        this.nbVictoire = nbVictoire;
+    }
+
+    public void setNbDefaite(Integer nbDefaite) {
+        this.nbDefaite = nbDefaite;
     }
 
 }

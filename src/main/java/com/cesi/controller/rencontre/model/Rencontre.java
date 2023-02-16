@@ -37,15 +37,12 @@ public class Rencontre {
     public Integer getNuGagnant() {
         return nuGagnant;
     }
-
     public Integer getNuPerdant() {
         return nuPerdant;
     }
-
     public String getLieuTournoi() {
         return lieuTournoi;
     }
-
     public Integer getAnnee() {
         return annee;
     }
@@ -62,7 +59,6 @@ public class Rencontre {
     public void setLieuTournoi(String lieuTournoi) {
         this.lieuTournoi = lieuTournoi;
     }
-
     public void setAnnee(Integer annee) {
         this.annee = annee;
     }

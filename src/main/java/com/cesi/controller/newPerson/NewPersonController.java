@@ -1,6 +1,8 @@
 package com.cesi.controller.newPerson;
 
+import com.cesi.controller.newPerson.model.NewPerson;
 import com.cesi.controller.person.model.Person;
+import com.cesi.services.newPerson.NewPersonService;
 import com.cesi.services.person.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,24 +23,24 @@ public class NewPersonController {
 
 //    private static final PersonMapper MAPPER = PersonMapper.INSTANCE;
 
-    private final PersonService personService;
+    private final NewPersonService newPersonService;
 
     @Autowired
-    public NewPersonController(PersonService personService) {
-        this.personService = personService;
+    public NewPersonController(NewPersonService newPersonService) {
+        this.newPersonService = newPersonService;
     }
 
-    @GetMapping("/persons")
-    public List<Person> listPersons(@RequestParam(value = "id", required = false) String id,
-                                    @RequestParam(value = "nom", required = false) String nom) {
-
-        List<Person> res = new ArrayList<Person>();
+    @GetMapping("/newpersons")
+    public List<NewPerson> listNewPersons(@RequestParam(value = "id", required = false) String id,
+                                        @RequestParam(value = "nom", required = false) String nom) 
+    {
+        List<NewPerson> res = new ArrayList<NewPerson>();
 
         try {
             if (id == null &&  nom == null) {
-                res = this.personService.getAllPersons();
+                res = this.newPersonService.getAllNewPersons();
             } else {
-                res = this.personService.getPersonsFilter(id,nom);
+                res = this.newPersonService.getNewPersonsFilter(id, nom);
             }
 
         } catch (final Exception e) {

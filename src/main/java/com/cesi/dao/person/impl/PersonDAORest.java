@@ -16,6 +16,7 @@ import com.cesi.dao.person.IPersonDAO;
 public class PersonDAORest implements IPersonDAO {
 
     private RestTemplate restTemplate;
+    String baseUrl = "https://8080-romainvisbec-springcesi-pww6n510xt2.ws-eu87.gitpod.io/";
 
     @Autowired
     public PersonDAORest(RestTemplate restTemplate){
@@ -26,7 +27,7 @@ public class PersonDAORest implements IPersonDAO {
     public Person addPerson(Person person) {
         ResponseEntity<Person> response;
 
-        String url = "https://8080-romainvisbec-springcesi-pww6n510xt2.ws-eu85.gitpod.io/";
+        String url = baseUrl;
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
